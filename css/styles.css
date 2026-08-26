@@ -717,7 +717,7 @@ select:focus-visible,
 
 .hero-content {
   padding-block: calc(var(--topbar-height) + var(--header-height) + var(--space-xl)) var(--space-2xl);
-  max-width: 780px;
+  max-width: 1100px;
 }
 
 .hero-eyebrow {
@@ -746,7 +746,6 @@ select:focus-visible,
 .hero-lead {
   font-size: var(--fs-body-lg);
   color: var(--color-text-on-dark-muted);
-  max-width: 56ch;
   margin-bottom: var(--space-lg);
   text-shadow: 0 1px 12px rgba(8, 20, 15, 0.55);
 }
@@ -847,7 +846,7 @@ select:focus-visible,
   justify-content: space-between;
   gap: var(--space-sm);
   padding-block: var(--space-sm);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
   border-block: 1px solid var(--color-border);
 }
 
@@ -906,11 +905,17 @@ select:focus-visible,
 }
 
 /* ------------------------------- Portfolio -------------------------------- */
+#services .section-head {
+  max-width: 1100px;
+  margin-bottom: var(--space-lg);
+}
+
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-2xs);
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .filter-btn {
@@ -1115,10 +1120,6 @@ select:focus-visible,
 }
 
 /* -------------------------------- Contact --------------------------------- */
-#contact .container {
-  max-width: 1040px;
-}
-
 #contact .section-head {
   margin-bottom: 0;
 }
@@ -1263,32 +1264,19 @@ select:focus-visible,
   pointer-events: none;
 }
 
-.form-field-optional {
-  font-weight: 400;
-  color: var(--color-text-muted);
-  text-transform: none;
-  letter-spacing: normal;
-}
-
-.upload-dropzone {
-  border: 1px dashed var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: var(--space-xs);
-  text-align: center;
-}
-
-.upload-trigger {
-  display: inline-flex;
+.form-field--upload .upload-trigger {
+  display: flex;
+  width: 100%;
   align-items: center;
-  gap: var(--space-3xs);
-  padding: 0.6rem 1rem;
+  justify-content: center;
+  padding: 0.6rem 0.85rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background-color: var(--color-surface);
-  font-size: var(--fs-small);
+  font-size: var(--fs-body);
   font-weight: 600;
   cursor: pointer;
-  transition: border-color var(--duration-fast) var(--ease-standard);
+  transition: border-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
 }
 
 .upload-trigger:hover {
@@ -1296,14 +1284,9 @@ select:focus-visible,
   color: var(--color-primary);
 }
 
-.upload-hint {
-  font-size: var(--fs-label);
-  color: var(--color-text-muted);
-  margin-top: var(--space-2xs);
-}
-
-.form-field.is-invalid .upload-dropzone {
+.form-field.is-invalid .upload-trigger {
   border-color: var(--color-error);
+  color: var(--color-error);
 }
 
 .upload-preview-list {
