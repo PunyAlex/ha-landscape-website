@@ -2,6 +2,10 @@
 
 A modern, conversion-focused marketing website for HA Landscape Inc., a local landscaping and gardening business. Built with plain HTML5, CSS3, and vanilla JavaScript — no framework, no build step.
 
+**🟢 Live at [halandscaping.com](https://halandscaping.com/)** · deploys automatically on `git push` to `main` · last updated 2026-08-26
+
+> **Resuming work?** Read `PROJECT.md` first (short, current-state orientation), then "Next steps" directly below. The two things most likely to trip you up: **`www.` is currently broken (522)**, and **you must bump `?v=` on the CSS/JS tags in both HTML files after editing them** — see "Deploying".
+
 ## Status — what's done, what's next
 
 **Done:**
@@ -26,12 +30,18 @@ A modern, conversion-focused marketing website for HA Landscape Inc., a local la
 - **Quote form has a working backend and a photo upload field.** Submissions POST straight to Web3Forms from the browser (`submitQuoteRequest()` in `js/script.js`) — no server of our own needed, and no build step required. Every lead is sent to **both** configured Web3Forms access keys (Alex's and Dad's) — 100% of leads reach both inboxes, not a split. The form also gained an optional photo upload (up to 3 photos, 5MB each) with inline previews, plus a honeypot field for basic spam protection now that the form is live-capable. Full details are under "Contact form" below.
 - **Testimonials section added** (`#testimonials` in `index.html`, between Services & Work and Contact), three real Google reviews (Maria Hidrogo, Michael S., Chris Carney) in a 3-column card grid (`.testimonial-grid`/`.testimonial-card` in `css/styles.css`, stacks to 1 column below 720px). No nav link — it's meant to be hit scrolling from the portfolio down to Contact, not a menu destination. The reviews are pasted in as static text with the relative "X years ago" timestamp the client gave; they don't update themselves and will read as stale eventually — either refresh the copy periodically or swap in a live Google Reviews widget/API later. No star ratings are shown since the client didn't provide per-review star counts — don't invent 5-star ratings without confirming them.
 
-**Next steps:**
-- Confirm domain purchase status, then work through the **"Launch walkthrough"** section below — it's the only thing left blocking go-live.
+- **Site is LIVE at [halandscaping.com](https://halandscaping.com/)**, hosted on Cloudflare Pages, auto-deploying from GitHub ([PunyAlex/ha-landscape-website](https://github.com/PunyAlex/ha-landscape-website)) on every push to `main`. See "Deploying" below.
+- **Conversion pass (2026-08-26):** mobile call bar, trust strip, contact-detail ordering, and section-width alignment — see "Conversion pass" below.
 
-## Launch prep — in progress
+**Next steps — start here tomorrow:**
+1. **Fix `www.halandscaping.com` — it's broken.** It currently returns **HTTP 522** (Cloudflare "connection timed out"); the apex `halandscaping.com` returns 200 and works fine. The `www` DNS record exists and points at Cloudflare, but `www` was never attached to the Pages project as a custom domain, so nothing is serving it. Anyone who types "www." gets an error page. Fix: Cloudflare dashboard → Pages project → **Custom domains → Set up a custom domain** → `www.halandscaping.com`, then set the `www` → apex 301 (apex is canonical — it's what `og:url` and the `<link rel="canonical">` tags already use).
+2. **Decide on the old domain `halandscape.com`** — still registered and currently returns 403 (parked, not redirecting). Either 301 it to `halandscaping.com` or let it lapse. See step 4 of the Launch walkthrough.
+3. **Google Business Profile** — not created yet. Everything it needs (service-area setup, categories, hours, service-area towns) is pre-written in step 6 of the Launch walkthrough.
+4. Optional polish, in priority order, from the UI review: link the testimonial cards to the Google Business Profile once it exists (adds credibility, drives reviews), and add a concrete response-time promise to the contact form note (e.g. "we'll call you back within one business day") **only if the business can actually commit to it** — it was deliberately left vague rather than inventing an SLA.
 
-Taking the site from dev to actually live (domain, hosting, DNS, SEO, Google Search Console/Business Profile). Started 2026-08-24, last updated 2026-08-25. This section tracks it so a future session can resume without re-deriving everything — the one real remaining blocker is the domain purchase itself.
+## Launch prep — done
+
+Taking the site from dev to actually live (domain, hosting, DNS, SEO, Google Search Console/Business Profile). Started 2026-08-24, launched 2026-08-26. Kept for history and because the Google Business Profile step is still outstanding.
 
 **Decisions made (settled, don't re-litigate):**
 - **Domain: `halandscaping.com`**, bought via Cloudflare Registrar (~$10.44/yr at-cost, no markup). Not `halandscapeinc.com` — already registered by someone else (confirmed via WHOIS). The old site's domain, `halandscape.com` (Network Solutions/Bluehost), is untouched by this work; whether to 301-redirect it to the new domain or let it lapse is still an open call — see the Launch walkthrough below.
@@ -48,10 +58,15 @@ Taking the site from dev to actually live (domain, hosting, DNS, SEO, Google Sea
 - **House-number privacy pass:** a photo scan flagged 7 photos showing a client's house number or a person. Client decision: blur the address number rather than crop/drop it. Done — `landscaping-13.jpg`, `driveway-1.jpg`, `retaining-walls-4.jpg` (both the mailbox-plate number and a smaller instance on the house), `retaining-walls-7.jpg`, and `walkways-driveways-1.jpg` all have a soft feathered blur directly over just the digits (stonework/houses themselves untouched). `walkways-driveways-2.jpg` (a "SURVEILLANCE / KEYTH" yard sign — not an address) and `patios-outdoor-living-3.jpg` (unidentifiable face) needed no change.
 - **Thin categories resolved:** client re-shot/reorganized so every gallery category now has 7+ photos — see the "Real project photography" bullet above and the category table in "Adding more photography" below, both already updated to match.
 - Verified: no missing images, no broken internal links, gallery filter categories match the quote-form dropdown, all `<img>` have non-empty `alt`, title/meta description lengths in range, no `console.*`/TODO/Lorem-ipsum/localhost artifacts left in shipped code.
-- **Launch walkthrough drafted** (see below) — hosting deploy, DNS, HTTPS, Google Search Console + Business Profile steps, a recurring-cost table, and a phased go-live checklist. This is a guide for whoever executes it (domain purchase, Cloudflare account setup, DNS clicks, and Google verification all require actions only the account owner can take) — not yet executed.
+- **Launch walkthrough** (see below) — hosting deploy, DNS, HTTPS, Google Search Console + Business Profile steps, a recurring-cost table, and a phased go-live checklist. Steps 1–3 and 5 are done; **step 4 (old domain) and step 6 (Google Business Profile) are still outstanding**, and `www` still needs attaching per step 3.
 
-**Still blocked on:**
-- Domain purchase itself (client-only action, real money) — status unconfirmed as of this pass. Once bought, work through the Launch walkthrough below.
+- **Domain bought and live.** `halandscaping.com` is on Cloudflare Registrar, deployed via Cloudflare Pages connected to the GitHub repo, HTTPS auto-issued. Apex serves 200.
+- **Google Search Console verified** — the `google-site-verification` meta tag is in `index.html`'s `<head>` (homepage only, which is all verification needs). Sitemap submission status not re-confirmed in the 2026-08-26 session; worth a check.
+
+**Still outstanding:**
+- `www.halandscaping.com` returns 522 — see "Next steps" at the top, item 1.
+- Google Business Profile not created — Launch walkthrough step 6.
+- Old domain `halandscape.com` redirect-or-lapse decision — Launch walkthrough step 4.
 
 ## Launch walkthrough
 
@@ -103,15 +118,43 @@ Step-by-step for taking the site live once the domain is purchased. Written for 
 
 **Phased go-live checklist**
 
-- [ ] Client buys `halandscaping.com` via Cloudflare Registrar
-- [ ] Client decision: 301-redirect `halandscape.com` to the new domain, or let it lapse
+- [x] Client buys `halandscaping.com` via Cloudflare Registrar
+- [ ] Client decision: 301-redirect `halandscape.com` to the new domain, or let it lapse — still open; currently 403/parked
 - [x] Business hours confirmed (Mon–Sat, 7am–4pm) — already in the JSON-LD, still needs entering into Google Business Profile
-- [ ] Deploy site to Cloudflare Pages, verify on the free `*.pages.dev` URL
-- [ ] Attach `halandscaping.com` + `www.halandscaping.com` as custom domains, confirm HTTPS and the `www`→apex redirect work
-- [ ] Re-check `og:image`/canonical URLs render correctly by pasting the live URL into a social-preview debugger once DNS has propagated
-- [ ] Google Search Console: verify property, submit `sitemap.xml`
+- [x] Deploy site to Cloudflare Pages — connected to the GitHub repo, auto-deploys on push to `main`
+- [x] Attach `halandscaping.com` as a custom domain, HTTPS confirmed working
+- [ ] **Attach `www.halandscaping.com` and set the `www`→apex 301 — NOT done, currently 522**
+- [ ] Re-check `og:image`/canonical URLs render correctly by pasting the live URL into a social-preview debugger
+- [x] Google Search Console: property verified via meta tag — sitemap submission not re-confirmed, worth checking
 - [ ] Google Business Profile: create, verify, add photos, confirm service-area + hours match the site
 - [ ] Final smoke test on the live domain: mobile menu, gallery filters/lightbox, quote form submission (real end-to-end email test), all nav links
+
+## Conversion pass (2026-08-26)
+
+Post-launch round focused on lead capture. The layout was deliberately **not** restructured — hero → visual proof → social proof → contact is already the right shape for a contractor, and the filterable 71-photo gallery is the site's strongest asset. These were targeted gaps, not a redesign.
+
+**Contact details now read in one consistent order everywhere — Hugo, then Jose.** Phone numbers are labelled with names (`847-727-0192 (Hugo)`, `847-738-0676 (Jose)`), and the emails were reordered to match in the top bar, footer, and Contact section on both pages. `847-738-0676` is Jose (Alex's dad); `847-727-0192` is Hugo (uncle). The `LocalBusiness` JSON-LD still carries Jose's number/email as the single canonical business contact — that's structured metadata for Google, not display order, and was left alone intentionally.
+
+**Mobile call bar** (`.call-bar`, both pages). The top utility bar carrying the phone numbers is `display: none` below 960px, so on phones — where most landscaping leads originate — there was no always-reachable tap-to-call; you had to open the hamburger or scroll to the footer. Now a fixed bottom bar with **Call Hugo** (tap-to-call) + **Get a Quote**, hidden at ≥960px where the top bar takes over. Sits at `z-index: 940`, just under `.nav-mobile` (950), so the menu covers it when open, and pads for `env(safe-area-inset-bottom)`.
+
+> It dials Hugo because his number is listed first everywhere. One tap beats a chooser — **swap the `tel:` href in both files if it should be Jose's.**
+
+**`--call-bar-height` token.** Because the bar is fixed, anything anchored to the bottom of the viewport has to clear it. `.hero-content` and `.site-footer` both subtract this token from their bottom padding; it's `4rem` on mobile and **`0rem` at ≥960px** where the bar is hidden, so both self-correct at every width. Anything bottom-anchored added later should use the same token rather than a hardcoded offset. This was a real bug first: the bar sat *on top of* the hero's "Get a Free Quote" button (45px overlap at 320px, 10px at 375px).
+
+**Trust strip** (`.trust-strip`, `index.html` only) — Licensed & Insured · Family-Owned Since 2004 · Free Estimates · Lake & Cook County, IL, in a band under the hero. Every claim was already on the site, just buried in the footer and on `about.html`; these are the exact things homeowners screen contractors on, so they now appear at decision time. Laid out as a **2×2 grid on phones**, widening to a single row at ≥860px — as a wrapping flex row it stacked into four lines (~153px of banner) on a 375px screen. Not added to `about.html`, which already covers the same ground in prose.
+
+**Contact form note** — "Free estimates — no pressure, no obligation." is now bold on its own line rather than one line of fine print, since fear of pressure/cost is the main thing that stops people contacting a contractor. **No response-time promise was invented** ("we'll call within 24 hours" and similar) — that's a commitment the business has to actually keep. Add one if they can honour it.
+
+**Photo upload simplified.** Was a label + dashed dropzone + button + hint paragraph — a button inside a button. Now a single full-width "Add photos" button matching the other form fields, with the "up to 3 photos, 5MB each" guidance preserved as an `aria-label` for screen readers. The invalid-state outline moved onto the button itself.
+
+**Section widths aligned.** Contact was capped at 1040px while everything else used 1360px, so its edges didn't line up with the header, hero, or Services above it — cap removed. The hero content block and Services heading were both widened to 1100px so their intro paragraphs sit on one line, Services' internal spacing was tightened, and the gallery filter pills were centred.
+
+**Verified at 320 / 375 / 414 / 768px** (via a throwaway iframe harness — window resizing was unreliable): hero CTAs and footer content clear the call bar at every width, trust strip is 2 rows everywhere, buttons don't wrap, `about.html` matches. Desktop rendering is byte-identical to before the mobile fixes.
+
+> **Testing gotcha:** in an automated/backgrounded tab `document.visibilityState` is `"hidden"`, which suspends `IntersectionObserver` — so every `.reveal` element sits at `opacity: 0` and the page looks blank. That is a harness artifact, not a bug. Add `.is-visible` manually before inspecting layout:
+> ```js
+> document.querySelectorAll('.reveal').forEach(e => e.classList.add('is-visible'));
+> ```
 
 ## Project structure
 
@@ -129,8 +172,16 @@ Step-by-step for taking the site live once the domain is purchased. Written for 
 │   ├── images/          Real project photography (.jpg), organized as
 │   │                     {category}-N.jpg — see table below
 │   └── icons/           Logo (logo-brick.png), favicon.svg
-└── README.md
+├── Jobs/                Client's original unprocessed photos — gitignored, NOT
+│                          used by the site. ~89MB, deliberately never committed.
+├── robots.txt           Allows all, points at the sitemap
+├── sitemap.xml          index.html + about.html
+├── PROJECT.md           Short orientation doc — read this first, it's the
+│                          "how it works now" guide
+└── README.md            This file — long-form history and client decisions
 ```
+
+`PROJECT.md` and this README serve different purposes on purpose: **PROJECT.md** is the concise, current-state guide (file map, how the gallery/form/lightbox work, conventions to follow); **README.md** is the narrative record of what was decided and why, so past choices don't get silently re-litigated.
 
 ## Running locally
 
@@ -147,6 +198,27 @@ npx serve .
 Then open `http://localhost:8000`.
 
 You can also just double-click `index.html`, though a local server is recommended so relative asset paths and `fetch`-based future integrations behave the same as production.
+
+## Deploying
+
+**`git push` to `main` is the deploy.** Cloudflare Pages is connected to [PunyAlex/ha-landscape-website](https://github.com/PunyAlex/ha-landscape-website) and rebuilds automatically — no build command, no manual upload, usually live within a minute.
+
+```bash
+git add -A && git commit -m "..." && git push
+```
+
+**After editing `css/styles.css` or `js/script.js`, bump the `?v=` query on their tags in BOTH `index.html` and `about.html`** (currently `?v=2`):
+
+```html
+<link rel="stylesheet" href="css/styles.css?v=2">
+<script src="js/script.js?v=2"></script>
+```
+
+This is not optional cosmetics. The host serves HTML with `max-age=0` (always revalidated) but CSS/JS with `max-age=14400` (**4 hours**). Without a bump, a returning visitor gets **new markup against stale CSS**, and new components render *unstyled rather than missing* — which looks like a broken layout, not an obvious cache problem. This bit us on 2026-08-26: the trust strip's checkmarks each dropped onto their own line and the mobile call bar lost its fixed positioning entirely, on a deploy that was actually correct. Verify a deploy landed with:
+
+```bash
+curl -s https://halandscaping.com/ | grep -o 'styles.css?v=[0-9]*'
+```
 
 ## Adding more photography
 
