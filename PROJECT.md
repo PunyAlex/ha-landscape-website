@@ -27,6 +27,11 @@ Both pages duplicate the same top bar, header, mobile nav, SVG icon sprite, and 
 no template or build step, so **a change to any of those must be made in both files**. Each page's
 sprite only carries the icons that page actually uses.
 
+**After editing `css/styles.css` or `js/script.js`, bump the `?v=` on their tags in both HTML
+files.** The host serves the HTML with `max-age=0` but those two assets with a 4-hour cache, so
+without a bump a returning visitor renders new markup against stale CSS — which silently breaks
+any newly added component (it shows up unstyled, not missing).
+
 ## How things work
 
 - **Gallery** (`#gallery-grid`): a horizontal snap-scroll carousel of `<button class="gallery-item">`.

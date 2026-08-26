@@ -22,7 +22,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <!-- ?v= is a cache buster. styles.css/script.js are served with a 4h cache but
+       the HTML is always revalidated, so without this a returning visitor gets new
+       markup against old CSS. Bump v on BOTH pages whenever either file changes. -->
+  <link rel="stylesheet" href="css/styles.css?v=2">
 
   <!-- Local business structured data. Deliberately no "address" field: this is
        a service-area business with no public storefront (client decision). -->
@@ -691,6 +694,6 @@
     <a class="btn btn-quiet" href="#contact" data-scroll>Get a Quote</a>
   </div>
 
-  <script src="js/script.js"></script>
+  <script src="js/script.js?v=2"></script>
 </body>
 </html>
