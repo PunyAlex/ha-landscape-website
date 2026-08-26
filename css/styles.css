@@ -315,6 +315,17 @@ select:focus-visible,
   border-color: var(--color-text-on-dark);
 }
 
+/* Outlined variant for light surfaces (the dark-surface pair is .btn-on-dark). */
+.btn-quiet {
+  color: var(--color-primary);
+  border-color: var(--color-border);
+  background-color: var(--color-surface);
+}
+
+.btn-quiet:hover {
+  border-color: var(--color-primary);
+}
+
 .btn-block {
   width: 100%;
 }
@@ -785,6 +796,33 @@ select:focus-visible,
   }
 }
 
+/* ---------------------------- Trust strip -------------------------------- */
+.trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-xs) var(--space-lg);
+  margin: 0;
+  padding: var(--space-sm) var(--container-padding);
+  list-style: none;
+  background-color: var(--color-surface-alt);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.trust-strip li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.trust-strip .icon {
+  color: var(--color-primary-light);
+  stroke-width: 2.4;
+}
+
 /* ---------------------------- Scroll reveal ------------------------------ */
 .reveal {
   opacity: 0;
@@ -1246,9 +1284,15 @@ select:focus-visible,
 }
 
 .form-note {
-  font-size: var(--fs-label);
+  font-size: var(--fs-small);
   color: var(--color-text-muted);
   margin-top: var(--space-xs);
+  text-align: center;
+}
+
+.form-note strong {
+  display: block;
+  color: var(--color-text);
 }
 
 .contact-form-card > button[type="submit"] {
@@ -1398,10 +1442,42 @@ select:focus-visible,
 }
 
 /* -------------------------------- Footer ----------------------------------- */
+/* --------------------------- Mobile call bar ------------------------------ */
+.call-bar {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 940;
+  display: flex;
+  gap: var(--space-2xs);
+  padding: var(--space-2xs) var(--container-padding)
+    calc(var(--space-2xs) + env(safe-area-inset-bottom));
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.call-bar .btn {
+  flex: 1;
+  padding-inline: var(--space-2xs);
+}
+
+@media (min-width: 960px) {
+  .call-bar {
+    display: none;
+  }
+}
+
 .site-footer {
   background-color: var(--color-primary-dark);
   color: var(--color-text-on-dark-muted);
-  padding-block: var(--space-2xl) var(--space-lg);
+  /* Extra bottom padding clears the fixed .call-bar; dropped once it hides. */
+  padding-block: var(--space-2xl) calc(var(--space-lg) + 4.5rem);
+}
+
+@media (min-width: 960px) {
+  .site-footer {
+    padding-bottom: var(--space-lg);
+  }
 }
 
 .footer-grid {
