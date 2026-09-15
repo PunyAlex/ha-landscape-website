@@ -17,9 +17,9 @@ A modern, conversion-focused marketing website for HA Landscape Inc., a local la
   - Patios & Outdoor Living (`patios-outdoor-living`) — 24 photos
   - Landscaping & Garden Beds (`landscaping`) — 24 photos
   - Walkways & Driveways (`walkways-driveways`) — 9 photos
-  - Retaining Walls & Stonework (`retaining-walls`) — 7 photos
+  - Retaining Walls & Stonework (`retaining-walls`) — 9 photos
   - Outdoor Kitchens (`outdoor-kitchens`) — 7 photos
-  - 71 gallery photos total, every category now has 7+ (the old thin 1-photo categories — Driveway, Fire Pits — no longer exist as their own filters; the client re-shot/reorganized). "Decorative Ponds & Pools" was removed entirely as a category (not a service HA Landscape offers).
+  - 73 gallery photos total, every category now has 7+ (the old thin 1-photo categories — Driveway, Fire Pits — no longer exist as their own filters; the client re-shot/reorganized). "Decorative Ponds & Pools" was removed entirely as a category (not a service HA Landscape offers).
   - **Filenames still carry old, pre-consolidation category prefixes for some files** (`brick-edging-*.jpg`, `driveway-1.jpg`, `fire-pits-1.jpg`, `patios-sidewalks-*.jpg`) even though those aren't current filter categories anymore — they were re-tagged with a current `data-category` rather than renamed on disk. **The filename prefix is cosmetic/historical; the `data-category` attribute in `index.html` is the only thing that actually controls what filter/category a photo shows under.** New photos should use the current category name as the filename prefix (see "Adding more photography" below) — the mismatched legacy filenames are just left as-is, not worth a mass rename.
 - **Hero section** (`#home`) is an auto-rotating slideshow of 6 real project photos (`.hero-slide` elements inside `#hero-slideshow`), crossfading every 6s via `js/script.js`, with a dark-green gradient scrim (`.hero-media::after`) for text contrast. Respects `prefers-reduced-motion` (no rotation, first photo only). Hero height is capped at `min(78vh, 700px)` rather than filling the full viewport.
 - **Top utility bar** (`.top-bar`, ≥960px viewports only) shows both phone numbers and both emails above the header. It's `position: fixed`, scrolls out of view (`translateY(-100%)`) once the user scrolls past 24px, at which point the sticky header (already existing) locks to `top: 0` in its place — both driven by the same `updateHeaderState()` scroll listener in `js/script.js`. Hidden below 960px; mobile users get phone/email via the existing mobile nav panel instead.
@@ -232,7 +232,7 @@ Every category already has 7+ real photos. To add more to an existing category:
 | Patios & Outdoor Living | `patios-outdoor-living` | 24 |
 | Landscaping & Garden Beds | `landscaping` | 24 |
 | Walkways & Driveways | `walkways-driveways` | 9 |
-| Retaining Walls & Stonework | `retaining-walls` | 7 |
+| Retaining Walls & Stonework | `retaining-walls` | 9 |
 | Outdoor Kitchens | `outdoor-kitchens` | 7 |
 
 Photos are resized so the longer edge is ≤1600px and re-encoded as `.jpg` before adding (originals are often HEIC/WEBP straight from a phone, several MB each) — keep doing this for new photos so the gallery stays fast. `sips` (built into macOS) handles both the format conversion and the resize:
